@@ -9,4 +9,38 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Assets\pieces\bb.png" />
+    <None Remove="Assets\pieces\bk.png" />
+    <None Remove="Assets\pieces\bn.png" />
+    <None Remove="Assets\pieces\bp.png" />
+    <None Remove="Assets\pieces\bq.png" />
+    <None Remove="Assets\pieces\br.png" />
+    <None Remove="Assets\pieces\wb.png" />
+    <None Remove="Assets\pieces\wk.png" />
+    <None Remove="Assets\pieces\wn.png" />
+    <None Remove="Assets\pieces\wp.png" />
+    <None Remove="Assets\pieces\wq.png" />
+    <None Remove="Assets\pieces\wr.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Assets\sounds\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\pieces\bb.png" />
+    <Resource Include="Assets\pieces\bk.png" />
+    <Resource Include="Assets\pieces\bn.png" />
+    <Resource Include="Assets\pieces\bp.png" />
+    <Resource Include="Assets\pieces\bq.png" />
+    <Resource Include="Assets\pieces\br.png" />
+    <Resource Include="Assets\pieces\wb.png" />
+    <Resource Include="Assets\pieces\wk.png" />
+    <Resource Include="Assets\pieces\wn.png" />
+    <Resource Include="Assets\pieces\wp.png" />
+    <Resource Include="Assets\pieces\wq.png" />
+    <Resource Include="Assets\pieces\wr.png" />
+  </ItemGroup>
+
 </Project>
