@@ -10,6 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\other\ds.png" />
+    <None Remove="Assets\other\ls.png" />
     <None Remove="Assets\pieces\bb.png" />
     <None Remove="Assets\pieces\bk.png" />
     <None Remove="Assets\pieces\bn.png" />
@@ -26,9 +28,13 @@
 
   <ItemGroup>
     <Folder Include="Assets\sounds\" />
+    <Folder Include="Utilities\" />
+    <Folder Include="ViewModel\" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\other\ds.png" />
+    <Resource Include="Assets\other\ls.png" />
     <Resource Include="Assets\pieces\bb.png" />
     <Resource Include="Assets\pieces\bk.png" />
     <Resource Include="Assets\pieces\bn.png" />
