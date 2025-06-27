@@ -15,11 +15,10 @@ namespace Desktop_Chess.Model
         public char PieceColor { get; set; }
         public string Type { get; set; }
 
-        public Piece(string imageSource, string type, char pieceColor, string name)
+        public Piece(string imageSource, string type)
         {
             this.Source = new BitmapImage(new Uri($"pack://application:,,,/Assets/pieces/{imageSource}"));
-            this.Name = name;
-            PieceColor = pieceColor;
+            PieceColor = imageSource[0];
             Type = type;
         }
     }

@@ -29,7 +29,6 @@
   <ItemGroup>
     <Folder Include="Assets\sounds\" />
     <Folder Include="Utilities\" />
-    <Folder Include="ViewModel\" />
   </ItemGroup>
 
   <ItemGroup>

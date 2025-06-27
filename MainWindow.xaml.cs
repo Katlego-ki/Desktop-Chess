@@ -20,7 +20,7 @@ namespace Desktop_Chess
     public partial class MainWindow : Window
     {
         private Point StartPoint {  get; set; } //check
-        private Image? DraggedPiece { get; set; } //check
+        private Piece? DraggedPiece { get; set; } //check
         private TranslateTransform Transform = new(); //check
 
         public MainWindow()
@@ -38,120 +38,77 @@ namespace Desktop_Chess
                 Columns = 8
             };
 
+
+            //create a piece
+            Piece? piece;
+            string? type = null;
+            string? source =null;
+
             for (int row = 0; row < 8; row++)
             {
                 for (int col = 0; col < 8; col++)
                 {
                     Border square = new()
                     {
-                        Background =  new ImageBrush(new BitmapImage(new Uri($"pack://application:,,,/Assets/other/{((row + col) % 2 != 0 ?"ds.png":"ls.png")}"))), //(row + col) % 2 != 0 ? Brushes.Green : Brushes.Gray, //will be removed and replaced with an actual picture of a chess board!
+                        Background =  new ImageBrush(new BitmapImage(new Uri($"pack://application:,,,/Assets/other/{((row + col) % 2 != 0 ?"ds.png":"ls.png")}")))
                     };
 
-                    if(row==1 || row == 6)
+                    // ======== PAWN ========
+                    if(row == 1 || row == 6)
                     {
-                        //Image pawn = new()
-                        //{
-                        //    Source = new BitmapImage(new Uri($"pack://application:,,,/Assets/pieces/{(row==6? "wp.png":"bp.png")}")),
-                        //    Width = 50,
-                        //    Height = 50,
-                        //    Name = row == 6 ? "whitePawn":"blackPawn"
-                        //};
-
-                        string source = row == 6 ? "wp.png" : "bp.png";
-                        char color = source[0];
-                        string name = row == 6 ? "whitePawn" : "blackPawn";
-
-                        Piece pawn = new(source, "pawn", color, name);
-                        Control_Piece(pawn);
-                        square.Name = "pawnSquare";
-                        square.Child = pawn;
+                        type = "pawn";
+                        source = row == 6 ? "wp.png" : "bp.png";   
                     }
 
-                    if((row==0 || row == 7) && (col==0 || col==7))
+                    // ======== ROOK ========
+                    if ((row == 0 || row == 7) && (col == 0 || col == 7))
                     {
-                        Image rook = new()
-                        {
-                            Source = new BitmapImage(new Uri($"pack://application:,,,/Assets/pieces/{(row == 7? "wr.png" : "br.png")}")),
-                            Width = 50,
-                            Height = 50,
-                            Name = row == 7 ? "whiteRook":"blackRook"
-                        };
-                        Control_Piece(rook); //or Attach_Controls(piece) ?
-                        square.Name = "KnightSqaure";
-                        square.Child = rook;
+                        type = "rook";
+                        source = row == 7 ? "wr.png" : "br.png";
                     }
 
+                    // ======== KNIGHT ========
                     if ((row == 0 || row == 7) && (col == 1 || col == 6))
                     {
-                        Image knight = new()
-                        {
-                            Source = new BitmapImage(new Uri($"pack://application:,,,/Assets/pieces/{(row == 7 ? "wn.png" : "bn.png")}")),
-                            Width = 50,
-                            Height = 50,
-                            Name = row == 7 ? "whiteKnight":"blackKnight"
-
-                        };
-
-                        Control_Piece(knight);
-
-                        square.Child = knight;
+                        type = "knight";
+                        source = row == 7 ? "wn.png" : "bn.png";
                     }
 
+                    // ======== KING ========
                     if ((row == 0 || row == 7) && col == 4)
                     {
-                        Image king = new()
-                        {
-                            Source = new BitmapImage(new Uri($"pack://application:,,,/Assets/pieces/{(row == 7 ? "wk.png" : "bk.png")}")),
-                            Width = 50,
-                            Height = 50,
-                            Name = row == 7 ? "whiteKing":"blackKing"
-                        };
-
-                        Control_Piece(king); //attaches event handlers for piece
-
-                        square.Child = king;
+                        type = "king";
+                        source = row == 7 ? "wk.png" : "bk.png";
                     }
 
+                    // ======== BISHOP ========
                     if ((row == 0 || row == 7) && (col == 2 || col == 5))
                     {
-                        Image bishop = new()
-                        {
-                            Source = new BitmapImage(new Uri($"pack://application:,,,/Assets/pieces/{(row == 7 ? "wb.png" : "bb.png")}")),
-                            Width = 50,
-                            Height = 50,
-                            Name = row == 7 ? "whitebBishop":"blackBishop"
-                        };
-
-                        Control_Piece(bishop);
-
-                        square.Child = bishop;
+                        type = "bishop";
+                        source = row == 7 ? "wb.png" : "bb.png";
                     }
 
+                    // ======== QUEEN ========
                     if ((row == 0 || row == 7) && col == 3)
                     {
-                        Image queen = new()
-                        {
-                            Source = new BitmapImage(new Uri($"pack://application:,,,/Assets/pieces/{(row == 7 ? "wq.png" : "bq.png")}")),
-                            Width = 50,
-                            Height = 50,
-                            Name = row == 7 ? "whiteQueen":"blackQueen"
-                            
-                        };
+                        type = "queen";
+                        source = row == 7 ? "wq.png" : "bq.png";   
+                    }
 
 
-                        Control_Piece(queen);
-
-                        square.Name = "queenSquare";
-                        square.Child = queen;
+                    //If there is a piece to be added
+                    if (source != null && type != null)
+                    {
+                        piece = new(source, type);
+                        Control_Piece(piece);
+                        square.Child = piece;
+                        type = null;
                     }
 
                     Panel.SetZIndex(square, 0);
-                    Add_Square_To_Grid(square, row, col);
-                   
+                    Add_Square_To_Grid(square, row, col); 
                 }
             }
-            //chessBoardGrid.ClipToBounds = true; // Ensures that the chessboard does not overflow its bounds
-            //chessBoardGrid.Background = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Assets/other/board1.jpeg"))); // Background image for the chessboard
         }
 
         private void Add_Square_To_Grid(Border square, int row, int col) //will be removed when UniformGrid is used
@@ -165,7 +122,7 @@ namespace Desktop_Chess
             chessBoardGrid.Children.Add(square);
         }
 
-        private void Control_Piece(Image piece)
+        private void Control_Piece(Piece piece)
         {
             piece.MouseDown += Piece_MouseDown;
             piece.MouseMove += Piece_MouseMove;
@@ -175,7 +132,7 @@ namespace Desktop_Chess
         private void Piece_MouseDown(object sender, MouseButtonEventArgs e)
         {
             StartPoint = e.GetPosition(chessBoardGrid);
-            DraggedPiece = (Image)sender;
+            DraggedPiece = (Piece)sender;
 
             var parent = (Border)VisualTreeHelper.GetParent(DraggedPiece);
             Panel.SetZIndex(parent, 1);
@@ -209,12 +166,12 @@ namespace Desktop_Chess
                     {
                         Point sqaurePosition = border.TranslatePoint(new Point(0, 0), chessBoardGrid);
                         Rect sqaureRect = new(sqaurePosition.X, sqaurePosition.Y, border.ActualWidth, border.ActualHeight);
-                        var capturedPiece = (Image) border.Child;
+                        var capturedPiece = (Piece) border.Child;
                         var parent = (Border)VisualTreeHelper.GetParent(DraggedPiece);
 
 
                         //if target sqaure is empty or contains enemy piece
-                        bool canCapture = capturedPiece == null || capturedPiece.Name[0] != DraggedPiece.Name[0];
+                        bool canCapture = capturedPiece == null || capturedPiece.PieceColor != DraggedPiece.PieceColor;
 
                         if (sqaureRect.Contains(dropPosition) && canCapture)
                         {
