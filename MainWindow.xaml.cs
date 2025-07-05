@@ -114,17 +114,6 @@ namespace Desktop_Chess
             return (source != null && type != null)? new(source, type) : null;
         }
 
-        //private void Add_Square_To_Grid(Border square, int row, int col) //will be removed when UniformGrid is used
-        //{
-        //    chessBoardGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50) });
-        //    chessBoardGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });
-
-        //    //species where to add the piece i.e. " <sqaure Grid.Row = row Grid.Column = column /> 
-        //    square.SetValue(Grid.RowProperty, row);
-        //    square.SetValue(Grid.ColumnProperty, col);
-        //    chessBoardGrid.Children.Add(square);
-        //}
-
         private void Control_Piece(Piece piece)
         {
             piece.MouseDown += Piece_MouseDown;
@@ -174,7 +163,7 @@ namespace Desktop_Chess
 
 
                         //if target sqaure is empty or contains enemy piece
-                        bool canCapture = capturedPiece == null || capturedPiece.PieceColor != DraggedPiece.PieceColor;
+                        bool canCapture = capturedPiece == null || capturedPiece.Color != DraggedPiece.Color;
 
                         if (sqaureRect.Contains(dropPosition) && canCapture)
                         {
